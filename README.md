@@ -1,2 +1,2 @@
 # example-bot
-A public bot to test disutil-dpy package
+A public bot to test disckit package
