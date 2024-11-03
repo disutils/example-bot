@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import app_commands, Interaction
-from disutil.utils import MainEmbed
+from disckit.utils import MainEmbed
 
 
 class Misc(commands.Cog):
@@ -22,3 +22,7 @@ class Misc(commands.Cog):
                 f"Successfully synced `{len(synced_global)}` slash commands globally!"
             )
         )
+
+
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(Misc(bot))

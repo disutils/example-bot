@@ -10,5 +10,5 @@ class Bot(commands.Bot):
 
         # Uncomment these when you run the bot for the first time.
         # Use the `/sync` command onwards and commend this back.
-        cmds = await self.tree.sync()
-        print(f"Synced {len(cmds)} commands.")
+        # cmds = await self.tree.sync()
+        # print(f"Synced {len(cmds)} commands.")

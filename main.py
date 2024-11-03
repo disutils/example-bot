@@ -3,15 +3,16 @@ import discord
 import dotenv
 import os
 
-from disutil import UtilConfig, CogEnum
-from disutil.cogs import dis_load_extension
+from disckit import UtilConfig, CogEnum
+from disckit.cogs import dis_load_extension
 from pathlib import Path
+
 from core import Bot
+
 
 bot_intents = discord.Intents(guilds=True, members=True)
 bot_env = dotenv.dotenv_values()
 BOT_TOKEN = bot_env["BOT_TOKEN"]
-
 
 UtilConfig.BUG_REPORT_CHANNEL = 1293653697385205802
 UtilConfig.STATUS_COOLDOWN = 600
