@@ -1,3 +1,5 @@
+__version__ = "1.0"
+
 import asyncio
 import discord
 import dotenv
@@ -5,17 +7,14 @@ import os
 
 from disckit import UtilConfig, CogEnum
 from disckit.cogs import dis_load_extension
-from pathlib import Path
 
+from pathlib import Path
 from core import Bot
 
 
-bot_intents = discord.Intents(guilds=True, members=True)
+bot_intents = discord.Intents.default()
 bot_env = dotenv.dotenv_values()
 BOT_TOKEN = bot_env["BOT_TOKEN"]
-
-UtilConfig.BUG_REPORT_CHANNEL = 1293653697385205802
-UtilConfig.STATUS_COOLDOWN = 600
 
 
 async def load_extensions(bot: Bot) -> None:
@@ -28,11 +27,31 @@ async def load_extensions(bot: Bot) -> None:
                 print(f"Loading Extension: {cog_dir.name}")
 
 
+async def custom_status(bot: Bot, version: str) -> tuple[str, ...]:
+    # Note: The global bot instance will always be passed onto the function
+    # as it's first argument when being called, so you will have to add the
+    # bot as the first parameter in the function for it to work as intended.
+
+    return (
+        # Prefixed by "Listening to " by the discord activity type.
+        f"version {version}!",
+        "humans.",
+        "Slash commands!",
+    )
+
+
 async def main() -> None:
     bot = Bot(
         intents=bot_intents,
         status=discord.Status.idle,
     )
+
+    UtilConfig.BUG_REPORT_CHANNEL = 1293653697385205802
+    UtilConfig.STATUS_FUNC = (
+        custom_status,
+        (__version__,),
+    )  # Don't forget to pass in the arguments you want to supply in the second element of the tuple.
+    UtilConfig.STATUS_COOLDOWN = 600
 
     await load_extensions(bot=bot)
     await dis_load_extension(bot, CogEnum.ERROR_HANDLER, CogEnum.STATUS_HANDLER)
