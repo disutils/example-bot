@@ -52,6 +52,9 @@ async def main() -> None:
         (__version__,),
     )  # Don't forget to pass in the arguments you want to supply in the second element of the tuple.
     UtilConfig.STATUS_COOLDOWN = 600
+    UtilConfig.LEMMA_TRANS_COMMANDS = {
+        discord.Locale.hindi: "translations/commands/hindi/hi-games.json"
+    }
 
     await load_extensions(bot=bot)
     await dis_load_extension(bot, CogEnum.ERROR_HANDLER, CogEnum.STATUS_HANDLER)
@@ -60,4 +63,7 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Exited with KeyboardInterrupt")
