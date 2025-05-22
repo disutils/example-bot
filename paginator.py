@@ -96,7 +96,7 @@ class Paginator(View):
 
         if current_page > self.total_pages - 1:
             raise PaginatorInvalidCurrentPage(
-                f"Expected an integer of range [0, {len(pages - 1)}]. Instead got {current_page}."
+                f"Expected an integer of range [0, {len(pages) - 1}]. Instead got {current_page}."
             )
 
         self.interaction = interaction
@@ -217,7 +217,7 @@ class Paginator(View):
 
         self.current_page += 1
         print("NEXT")
-        if self.current_page > self.pages - 1:
+        if self.current_page > self.total_pages - 1:
             print("FIRST")
             self.current_page = 0
         print("EDIT START")

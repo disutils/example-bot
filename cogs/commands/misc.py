@@ -30,7 +30,19 @@ class Misc(commands.Cog):
 
         home_page = MainEmbed("THIS IS HOME PAGE")
 
-        pages: list[MainEmbed] = [MainEmbed(f"This is embed {i}") for i in range(10)]
+        pages: list[MainEmbed] = [
+            MainEmbed("Page 1: Welcome to the paginator!"),
+            MainEmbed("Page 2: Here's some more content."),
+            MainEmbed("Page 3: Did you know this is a test?"),
+            MainEmbed("Page 4: Almost halfway there!"),
+            MainEmbed("Page 5: Halfway through the pages."),
+            MainEmbed("Page 6: Keep going, you're doing great!"),
+            MainEmbed("Page 7: Just a few more to go."),
+            MainEmbed("Page 8: Almost at the end."),
+            MainEmbed("Page 9: Second to last page."),
+            MainEmbed("Page 10: This is the final page!")
+        ]
+
         paginator = Paginator(
             interaction=interaction, pages=pages, home_button=True, home_page=home_page
         )
