@@ -1,16 +1,16 @@
 __version__ = "1.0"
 
 import asyncio
+import os
+from pathlib import Path
+from typing import Any
+
 import discord
 import dotenv
-import os
-
-from disckit import UtilConfig, CogEnum
+from disckit import CogEnum, UtilConfig
 from disckit.cogs import dis_load_extension
 
-from pathlib import Path
 from core import Bot
-
 
 bot_intents = discord.Intents.default()
 bot_env = dotenv.dotenv_values()
@@ -27,10 +27,12 @@ async def load_extensions(bot: Bot) -> None:
                 print(f"Loading Extension: {cog_dir.name}")
 
 
-async def custom_status(bot: Bot, version: str) -> tuple[str, ...]:
+async def custom_status(bot: Bot, *args: Any) -> tuple[str, ...]:
     # Note: The global bot instance will always be passed onto the function
     # as it's first argument when being called, so you will have to add the
     # bot as the first parameter in the function for it to work as intended.
+
+    version: str = args[0]
 
     return (
         # Prefixed by "Listening to " by the discord activity type.
@@ -46,7 +48,7 @@ async def main() -> None:
         status=discord.Status.idle,
     )
 
-    UtilConfig.BUG_REPORT_CHANNEL = 1293653697385205802
+    UtilConfig.BUG_REPORT_CHANNEL = 1316547285856817244
     UtilConfig.STATUS_FUNC = (
         custom_status,
         (__version__,),

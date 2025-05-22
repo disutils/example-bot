@@ -1,16 +1,23 @@
 from __future__ import annotations
 
 import random
-
-from discord.ext import commands
-from discord import app_commands, Interaction
-from discord.app_commands import locale_str as _T
-from disckit.utils import SuccessEmbed, ErrorEmbed, MainEmbed
 from typing import TYPE_CHECKING
+
+from disckit.utils import (
+    ErrorEmbed,
+    MainEmbed,
+    SuccessEmbed,
+    make_autocomplete,
+)
+from discord import app_commands
+from discord.app_commands import locale_str as _T
+from discord.ext import commands
 
 from utils.game_utils import CoinFlipOption
 
 if TYPE_CHECKING:
+    from discord import Interaction
+
     from core.bot import Bot
 
 
@@ -69,6 +76,11 @@ class Games(commands.Cog):
                 f"\n-# Lower limit: {lower}, upper limit: {upper}"
             )
         )
+
+    @game_cmds.command()
+    @app_commands.autocomplete(fruit=make_autocomplete("Apple", "Banana", "Cherry"))
+    async def choose_fruit(self, interaction: Interaction, fruit: str) -> None:
+        await interaction.response.send_message(embed=MainEmbed(f"You chose the fruit: {fruit}!"))
 
 
 async def setup(bot: Bot) -> None:
